@@ -5,6 +5,7 @@ import Pipeline from './Pipeline'
 import Transform from './Transform'
 import Monitor from './Monitor'
 import Visualize from './Visualize'
+import AI from './AI'
 import Connectors from './Connectors'
 
 const TABS = [
@@ -65,6 +66,7 @@ export default function App() {
           {active === 'transform'  && <Transform />}
           {active === 'monitor'    && <Monitor />}
           {active === 'visualize'  && <Visualize />}
+          {active === 'catalog'    && <AI />}
     {active === 'connectors' && <Connectors />}
 {active !== 'overview' && active !== 'ingestion' && active !== 'transform' && active !== 'monitor' && active !== 'visualize' && active !== 'connectors' && (
   <div style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>
