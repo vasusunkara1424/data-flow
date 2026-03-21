@@ -7,6 +7,7 @@ import Monitor from './Monitor'
 import Visualize from './Visualize'
 import AI from './AI'
 import Connectors from './Connectors'
+import Teams from './Teams'
 
 const TABS = [
   { id:'overview',   icon:'⬡', label:'Overview',     sub:'All systems operational' },
@@ -16,6 +17,8 @@ const TABS = [
   { id:'visualize',  icon:'▲', label:'Visualize',    sub:'Live dashboards' },
   { id:'catalog',    icon:'▦', label:'Data Catalog', sub:'5 verified tables' },
   { id:'connectors', icon:'⌬', label:'Connectors',   sub:'8 integrations' },
+  { id:'teams', icon:'👥', label:'Teams', sub:'Manage your workspace' },
+
 ]
 
 export default function App() {
@@ -67,6 +70,8 @@ export default function App() {
           {active === 'monitor'    && <Monitor />}
           {active === 'visualize'  && <Visualize />}
           {active === 'catalog'    && <AI />}
+          {active === 'teams'      && <Teams />}
+          {active === 'connectors' && <Connectors />}
     {active === 'connectors' && <Connectors />}
 {active !== 'overview' && active !== 'ingestion' && active !== 'transform' && active !== 'monitor' && active !== 'visualize' && active !== 'connectors' && (
   <div style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>
