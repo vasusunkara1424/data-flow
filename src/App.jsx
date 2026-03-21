@@ -72,7 +72,7 @@ export default function App() {
           {active === 'catalog'    && <AI />}
           {active === 'teams'      && <Teams />}
           {active === 'connectors' && <Connectors />}
-    {active === 'connectors' && <Connectors />}
+
 {active !== 'overview' && active !== 'ingestion' && active !== 'transform' && active !== 'monitor' && active !== 'visualize' && active !== 'connectors' && (
   <div style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>
     <div style={{textAlign:'center', color:'#6b6b80'}}>

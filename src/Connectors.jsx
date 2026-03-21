@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const CONNECTORS = [
   { id: 'postgres', label: 'PostgreSQL', icon: '🐘', fields: [
@@ -24,6 +24,28 @@ export default function Connectors() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [events, setEvents] = useState([])
+  const [wsStatus, setWsStatus] = useState('connecting')
+  const wsRef = useRef(null)
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:4001')
+    wsRef.current = ws
+
+    ws.onopen = () => setWsStatus('connected')
+    ws.onclose = () => setWsStatus('disconnected')
+    ws.onerror = () => setWsStatus('error')
+
+    ws.onmessage = (msg) => {
+      const event = JSON.parse(msg.data)
+      setEvents(prev => [{
+        ...event,
+        timestamp: new Date().toLocaleTimeString()
+      }, ...prev].slice(0, 50))
+    }
+
+    return () => ws.close()
+  }, [])
 
   const handleConnect = async () => {
     setLoading(true)
@@ -44,8 +66,15 @@ export default function Connectors() {
     setLoading(false)
   }
 
+  const tagColor = (type) => {
+    if (type === 'insert') return { bg: 'rgba(0,229,100,0.1)', color: '#00e564', label: '✅ INSERT' }
+    if (type === 'update') return { bg: 'rgba(255,200,0,0.1)', color: '#ffc800', label: '✏️ UPDATE' }
+    if (type === 'delete') return { bg: 'rgba(255,80,80,0.1)', color: '#ff5050', label: '🗑️ DELETE' }
+    return { bg: '#111', color: '#fff', label: type }
+  }
+
   return (
-    <div style={{padding:'32px', maxWidth:'800px', margin:'0 auto'}}>
+    <div style={{padding:'32px', maxWidth:'900px', margin:'0 auto'}}>
       <h2 style={{fontSize:'22px', fontWeight:'800', marginBottom:'8px'}}>Connectors</h2>
       <p style={{color:'#6b6b80', marginBottom:'32px', fontSize:'14px'}}>Connect your data sources</p>
 
@@ -62,7 +91,7 @@ export default function Connectors() {
       </div>
 
       {selected && (
-        <div style={{background:'#111118', borderRadius:'12px', border:'1px solid #2a2a38', padding:'24px'}}>
+        <div style={{background:'#111118', borderRadius:'12px', border:'1px solid #2a2a38', padding:'24px', marginBottom:'32px'}}>
           <h3 style={{marginBottom:'20px', fontSize:'16px', fontWeight:'700'}}>Connect to {selected.label}</h3>
           {selected.fields.map(f => (
             <div key={f.key} style={{marginBottom:'16px'}}>
@@ -79,7 +108,6 @@ export default function Connectors() {
               background:'#00e5ff', color:'#000', fontWeight:'700', cursor:'pointer', fontSize:'14px'}}>
             {loading ? 'Connecting...' : 'Connect'}
           </button>
-
           {error && <div style={{marginTop:'16px', padding:'12px', borderRadius:'8px', background:'rgba(255,50,50,0.1)', color:'#ff5555', fontSize:'13px'}}>❌ {error}</div>}
           {result && (
             <div style={{marginTop:'16px', padding:'12px', borderRadius:'8px', background:'rgba(0,229,255,0.08)', border:'1px solid rgba(0,229,255,0.2)'}}>
@@ -89,6 +117,39 @@ export default function Connectors() {
           )}
         </div>
       )}
+
+      {/* Live CDC Feed */}
+      <div style={{background:'#111118', borderRadius:'12px', border:'1px solid #2a2a38', padding:'24px'}}>
+        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'16px'}}>
+          <h3 style={{fontSize:'16px', fontWeight:'700', margin:0}}>⚡ Live CDC Feed</h3>
+          <div style={{display:'flex', alignItems:'center', gap:'8px', fontSize:'13px'}}>
+            <div style={{width:'8px', height:'8px', borderRadius:'50%',
+              background: wsStatus === 'connected' ? '#00e564' : wsStatus === 'connecting' ? '#ffc800' : '#ff5050'}}/>
+            <span style={{color:'#6b6b80', textTransform:'capitalize'}}>{wsStatus}</span>
+          </div>
+        </div>
+
+        {events.length === 0 ? (
+          <div style={{textAlign:'center', padding:'32px', color:'#6b6b80', fontSize:'14px'}}>
+            Waiting for database changes...<br/>
+            <span style={{fontSize:'12px'}}>Try inserting or updating a row in your database</span>
+          </div>
+        ) : (
+          <div style={{display:'flex', flexDirection:'column', gap:'8px', maxHeight:'400px', overflowY:'auto'}}>
+            {events.map((e, i) => {
+              const tag = tagColor(e.type)
+              return (
+                <div key={i} style={{padding:'12px', borderRadius:'8px', background:'#0a0a0f', border:'1px solid #1a1a28', display:'flex', gap:'12px', alignItems:'flex-start'}}>
+                  <span style={{padding:'2px 8px', borderRadius:'4px', background:tag.bg, color:tag.color, fontSize:'12px', fontWeight:'700', whiteSpace:'nowrap'}}>{tag.label}</span>
+                  <span style={{color:'#00e5ff', fontSize:'12px', fontWeight:'600'}}>{e.table}</span>
+                  <pre style={{margin:0, fontSize:'11px', color:'#a0a0b8', flex:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>{JSON.stringify(e.data)}</pre>
+                  <span style={{color:'#3a3a50', fontSize:'11px', whiteSpace:'nowrap'}}>{e.timestamp}</span>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
