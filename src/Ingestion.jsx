@@ -6,11 +6,11 @@ export default function Ingestion() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/sources')
+    fetch('https://dataflow-api-production-7b08.up.railway.app/api/sources')
       .then(r => r.json())
       .then(data => { setSources(data); setLoading(false) })
 
-    fetch('http://localhost:4000/api/stats')
+    fetch('https://dataflow-api-production-7b08.up.railway.app/api/stats')
       .then(r => r.json())
       .then(data => setStats(data))
   }, [])

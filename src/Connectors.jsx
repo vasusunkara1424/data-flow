@@ -29,7 +29,7 @@ export default function Connectors() {
   const wsRef = useRef(null)
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:4001')
+    const ws = new WebSocket('wss://dataflow-api-production-7b08.up.railway.app')
     wsRef.current = ws
 
     ws.onopen = () => setWsStatus('connected')
@@ -52,7 +52,7 @@ export default function Connectors() {
     setError(null)
     setResult(null)
     try {
-      const res = await fetch(`http://localhost:4000/api/connect/${selected.id}`, {
+      const res = await fetch(`https://dataflow-api-production-7b08.up.railway.app/api/connect/${selected.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)

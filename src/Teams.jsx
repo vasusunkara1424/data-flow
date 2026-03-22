@@ -15,7 +15,7 @@ export default function Teams() {
   }, [user])
 
   const fetchWorkspaces = async () => {
-    const res = await fetch(`http://localhost:4000/api/workspaces/${user.id}`)
+    const res = await fetch(`https://dataflow-api-production-7b08.up.railway.app/api/workspaces/${user.id}`)
     const data = await res.json()
     if (data.success) setWorkspaces(data.workspaces)
   }
@@ -23,7 +23,7 @@ export default function Teams() {
   const createWorkspace = async () => {
     if (!newName.trim()) return
     setLoading(true)
-    const res = await fetch('http://localhost:4000/api/workspaces', {
+    const res = await fetch('https://dataflow-api-production-7b08.up.railway.app/api/workspaces', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newName, userId: user.id, email: user.primaryEmailAddress?.emailAddress })
@@ -42,7 +42,7 @@ export default function Teams() {
   const inviteMember = async () => {
     if (!inviteEmail.trim() || !selectedWs) return
     setLoading(true)
-    const res = await fetch(`http://localhost:4000/api/workspaces/${selectedWs}/invite`, {
+    const res = await fetch(`https://dataflow-api-production-7b08.up.railway.app/api/workspaces/${selectedWs}/invite`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: inviteEmail })

@@ -20,7 +20,7 @@ export default function AI() {
     setError(null)
     setResult(null)
     try {
-      const res = await fetch('http://localhost:4000/api/ai/sql', {
+      const res = await fetch('https://dataflow-api-production-7b08.up.railway.app/api/ai/sql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: query })
