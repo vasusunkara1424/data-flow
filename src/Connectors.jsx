@@ -29,7 +29,7 @@ export default function Connectors() {
   const wsRef = useRef(null)
 
   useEffect(() => {
-    const ws = new WebSocket('wss://dataflow-api-production-7b08.up.railway.app')
+    const ws = new WebSocket('ws://localhost:4001')
     wsRef.current = ws
 
     ws.onopen = () => setWsStatus('connected')
