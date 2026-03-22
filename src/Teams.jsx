@@ -3,6 +3,8 @@ import { useUser } from '@clerk/clerk-react'
 
 export default function Teams() {
   const { user } = useUser()
+  if (!user) return <div style={{padding:"32px", color:"#6b6b80"}}>Please sign in to access Team Workspaces.</div>
+  if (!user) return <div style={{padding:"32px", color:"#6b6b80"}}>Please sign in to access Team Workspaces.</div>
   const [workspaces, setWorkspaces] = useState([])
   const [newName, setNewName] = useState('')
   const [inviteEmail, setInviteEmail] = useState('')
