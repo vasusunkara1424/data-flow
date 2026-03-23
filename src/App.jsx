@@ -77,7 +77,6 @@ export default function App() {
   <div style={{display:'flex', alignItems:'center', justifyContent:'center', height:'100%'}}>
     <div style={{textAlign:'center', color:'#6b6b80'}}>
       <div style={{fontSize:'48px', marginBottom:'16px', color:'#00e5ff'}}>{current.icon}</div>
-      <div style={{fontFamily:'monospace', fontSize:'14px'}}>{current.label} — coming soon</div>
     </div>
   </div>
 )}
