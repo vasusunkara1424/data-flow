@@ -7,7 +7,8 @@ import Monitor from './Monitor'
 import Visualize from './Visualize'
 import AI from './AI'
 import Connectors from './Connectors'
-import Teams from './Teams'
+import Overview from "./Overview"
+import Teams from "./Teams"
 
 const TABS = [
   { id:'overview',   icon:'⬡', label:'Overview',     sub:'All systems operational' },
@@ -64,7 +65,7 @@ export default function App() {
         </header>
 
         <main style={{flex:1, background:'#0a0a0f', overflow:'auto'}}>
-          {active === 'overview'   && <Pipeline />}
+          {active === 'overview' && <Overview />}
           {active === 'ingestion'  && <Ingestion />}
           {active === 'transform'  && <Transform />}
           {active === 'monitor'    && <Monitor />}
