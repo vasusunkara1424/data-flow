@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+import Landing from './Landing'
 import Ingestion from './Ingestion'
 import Pipeline from './Pipeline'
 import Transform from './Transform'
@@ -27,6 +28,9 @@ export default function App() {
   const current = TABS.find(t => t.id === active)
 
   return (
+    <>
+    <SignedOut><Landing /></SignedOut>
+    <SignedIn>
     <div style={{display:'flex', height:'100vh', overflow:'hidden', background:'#0a0a0f', color:'#e8e8f0', fontFamily:'Syne, sans-serif'}}>
 
       <aside style={{width:'220px', background:'#111118', borderRight:'1px solid #2a2a38', display:'flex', flexDirection:'column'}}>
@@ -84,5 +88,7 @@ export default function App() {
         </main>
       </div>
     </div>
+    </SignedIn>
+    </>
   )
 }
