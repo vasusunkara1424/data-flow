@@ -34,7 +34,23 @@ export default function Landing() {
       {/* Nav */}
       <nav style={{position:'fixed', top:0, left:0, right:0, zIndex:100, display:'flex', justifyContent:'space-between', alignItems:'center', padding:'0 48px', height:'64px', background: scrollY > 20 ? 'rgba(8,8,16,0.9)' : 'transparent', backdropFilter: scrollY > 20 ? 'blur(12px)' : 'none', borderBottom: scrollY > 20 ? '1px solid rgba(255,255,255,0.06)' : 'none', transition:'all 0.3s'}}>
         <div style={{fontSize:'18px', fontWeight:'700', letterSpacing:'-0.5px'}}>
-          Data<span style={{color:'#00e5ff'}}>Griid</span>
+          <svg width='120' height='32' viewBox='0 0 680 420' xmlns='http://www.w3.org/2000/svg'>
+    <line x1='100' y1='185' x2='380' y2='185' stroke='#e8e8f0' stroke-width='2.5' stroke-linecap='round'/>
+    <line x1='100' y1='172' x2='100' y2='198' stroke='#e8e8f0' stroke-width='2.5' stroke-linecap='round'/>
+    <line x1='380' y1='172' x2='380' y2='198' stroke='#e8e8f0' stroke-width='2.5' stroke-linecap='round'/>
+    <line x1='230' y1='80' x2='230' y2='290' stroke='#e8e8f0' stroke-width='2.5' stroke-linecap='round'/>
+    <line x1='218' y1='80' x2='242' y2='80' stroke='#e8e8f0' stroke-width='2.5' stroke-linecap='round'/>
+    <line x1='218' y1='290' x2='242' y2='290' stroke='#e8e8f0' stroke-width='2.5' stroke-linecap='round'/>
+    <line x1='100' y1='218' x2='380' y2='218' stroke='#e8e8f0' stroke-width='1.2' stroke-linecap='round' opacity='0.5'/>
+    <line x1='100' y1='210' x2='100' y2='226' stroke='#e8e8f0' stroke-width='1.5' stroke-linecap='round' opacity='0.5'/>
+    <line x1='380' y1='210' x2='380' y2='226' stroke='#e8e8f0' stroke-width='1.5' stroke-linecap='round' opacity='0.5'/>
+    <text x='148' y='175' style='font-size:22px;font-weight:700;fill:#e8e8f0;font-family:Inter,sans-serif'>D</text>
+    <text x='148' y='234' style='font-size:22px;font-weight:700;fill:#e8e8f0;font-family:Inter,sans-serif'>G</text>
+    <path d='M230,130 C240,160 265,185 230,185 C265,185 240,210 230,240 C220,210 195,185 230,185 C195,185 220,160 230,130Z' fill='#e8e8f0' opacity='0.9'/>
+    <circle cx='310' cy='185' r='14' fill='#00e5ff'/>
+    <circle cx='310' cy='185' r='6' fill='#080810'/>
+    <text x='340' y='360' text-anchor='middle' style='font-size:28px;font-weight:700;fill:#e8e8f0;font-family:Inter,sans-serif;letter-spacing:8px'>DATA GR<tspan fill="#00e5ff">II</tspan>D</text>
+  </svg>
         </div>
         <div style={{display:'flex', gap:'32px', fontSize:'14px', color:'#6b6b80'}}>
           {['Features', 'Pricing', 'Docs', 'Blog'].map(item => (
