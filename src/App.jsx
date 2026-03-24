@@ -20,6 +20,7 @@ const TABS = [
   { id:'catalog',    icon:'▦', label:'Data Catalog', sub:'5 verified tables' },
   { id:'connectors', icon:'⌬', label:'Connectors',   sub:'8 integrations' },
   { id:'teams', icon:'👥', label:'Teams', sub:'Manage your workspace' },
+  { id:'settings', icon:'⚙', label:'Settings', sub:'Account & preferences' },
 
 ]
 
