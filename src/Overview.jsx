@@ -54,7 +54,7 @@ export default function Overview() {
           <div key={card.key} style={{background:'#111118', borderRadius:'12px', border:'1px solid #2a2a38', padding:'20px'}}>
             <div style={{fontSize:'24px', marginBottom:'8px'}}>{card.icon}</div>
             <div style={{fontSize:'28px', fontWeight:'800', color: card.color}}>
-              {loading ? '...' : stats ? stats[card.key] : '0'}
+              {loading ? '...' : stats ? String(stats[card.key] ?? "0") : '0'}
             </div>
             <div style={{fontSize:'13px', color:'#6b6b80', marginTop:'4px'}}>{card.label}</div>
           </div>
